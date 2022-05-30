@@ -3,6 +3,7 @@ import {MoreVert} from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import {format} from "timeago.js";
 import {Link} from "react-router-dom";
+import axios from "axios";
 import { axiosInstance } from "../../config";
 
 export default function Post({post}) {
@@ -12,7 +13,7 @@ export default function Post({post}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     useEffect(() => { //action that occurs after you render the page
         const fetchUser = async () => { //async function can only be declared inside main function
-          const res = await axiosInstance.get(`/users/?userID=${post.userID}`);
+          const res = await axios.get(`/api/users/?userID=${post.userID}`);
           setUser(res.data);
         }
         fetchUser();

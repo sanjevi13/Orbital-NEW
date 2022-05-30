@@ -8,6 +8,7 @@ const userRoute = require('./routes/users');
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const path = require("path");
+const port = process.env.PORT || 5000;
 
 dotenv.config();
 
@@ -31,6 +32,6 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
   });
  }
 
-app.listen(process.env.PORT || 8800, () => {
-    console.log("backend server is running at port 8800" )
+app.listen(port, () => {
+    console.log("backend server is running at port 5000" )
 });
