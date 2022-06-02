@@ -24,7 +24,7 @@ export default function Register() {
                 password: password.current.value
             }
             try {
-                const res = await axiosInstance.post("/api/auth/register", user);     
+                const res = await axiosInstance.post("/auth/register", user);     
                 history.push("/login");        
             } catch(err){
                 console.log(err);
