@@ -11,8 +11,8 @@ export default function Feed({username}) {
   useEffect(() => { //action that occurs after you render the page
     const fetchPosts = async () => { //async function can only be declared inside main function
       const res = username 
-        ? await axiosInstance.get("/api/posts/profile/" + username) 
-        : await axiosInstance.get("/api/posts/timeline/6289a182bde074f423029748");
+        ? await axiosInstance.get("/posts/profile/" + username) 
+        : await axiosInstance.get("/posts/timeline/6289a182bde074f423029748");
         setPosts(res.data);
     }
     fetchPosts();

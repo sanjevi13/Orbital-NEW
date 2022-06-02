@@ -15,7 +15,7 @@ export default function Profile() {
 
     useEffect(() => { //action that occurs after you render the page
         const fetchUser = async () => { //async function can only be declared inside main function
-          const res = await axiosInstance.get(`/api/users/?username=${username}`);
+          const res = await axiosInstance.get(`/users/?username=${username}`);
           setUser(res.data);
         }
         fetchUser();

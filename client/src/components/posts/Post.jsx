@@ -13,7 +13,7 @@ export default function Post({post}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     useEffect(() => { //action that occurs after you render the page
         const fetchUser = async () => { //async function can only be declared inside main function
-          const res = await axiosInstance.get(`/api/users/?userID=${post.userID}`);
+          const res = await axiosInstance.get(`/users/?userID=${post.userID}`);
           setUser(res.data);
         }
         fetchUser();
