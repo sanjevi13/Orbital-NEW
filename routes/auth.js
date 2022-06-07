@@ -6,7 +6,6 @@ router.post('/register', async (req,res) => {
     try{
         //generate new password
         const salt = await bcrypt.genSalt(10);
-        console.log(req.body);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         
         //create new user
@@ -27,7 +26,6 @@ router.post('/register', async (req,res) => {
 //login
 router.post("/login", async (req, res)=>{
     try {
-        console.log(req);
         const user = await User.findOne({email: req.body.email});
         !user && res.status(404).json("user not found");
 

@@ -4,13 +4,12 @@ const User = require("../models/User");
 
 //create post
 router.post("/", async (req, res)=>{
-    console.log(req.body);
     const newPost = new Post(req.body);
     try {
         const savedPost = await newPost.save();
         res.status(200).json(savedPost);
     } catch(err) {
-        res.status(500).json(error);
+        res.status(500).json(err);
     }
 })
 
@@ -81,7 +80,7 @@ router.get("/timeline/:userID", async (req, res)=>{
                 return Post.find({userID: friendID})
             })
         );
-        console.log(`friendPosts:${friendPosts}`);
+
         res.status(200).json(userPosts.concat(...friendPosts));
         //res.status(200).json(userPosts);
     } catch(err){
