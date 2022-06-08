@@ -1,4 +1,5 @@
-export const LoginStart = (userCredentials) => ({
+//tells reducer what to update
+export const LoginStart = () => ({
     type:"LOGIN_START"
 });
 

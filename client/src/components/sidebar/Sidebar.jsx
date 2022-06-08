@@ -1,10 +1,12 @@
 import "./sidebar.css"
 import {RssFeed, Event} from "@mui/icons-material";
-import {Users} from "../../dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 
 export default function Sidebar() {
+  const {user} = useContext(AuthContext);
   return (
     <div className="sidebar"> 
       <div className="sidebarWrapper">
@@ -22,7 +24,7 @@ export default function Sidebar() {
         <hr className="sidebarHr"/>
         <ul className="sidebarFriendList">
           <div className="sidebarFriendListHeader">Friends</div>
-          {Users.map(u => 
+          {user.following.map(u => 
             <CloseFriend key={u.id} user={u}/>  
           )}
         </ul>

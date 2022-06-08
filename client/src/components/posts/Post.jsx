@@ -14,7 +14,7 @@ export default function Post({post}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user: currentUser} = useContext(AuthContext);
     
-    useEffect(() => { //action that occurs after you render the page
+    useEffect(() => { //set the user for this post
         const fetchUser = async () => { //async function can only be declared inside main function
           const res = await axios.get(`/users/?userID=${post.userID}`);
           setUser(res.data);
@@ -46,7 +46,7 @@ export default function Post({post}) {
                     <Link to={"profile/" + user.username}>
                     <img src={user.profilePicture ? 
                             PF + user.profilePicture : 
-                            PF + "person/duck.jpg"
+                            PF + "noProfilePic.jpg"
                         } 
                     alt="" className="postProfileImg" />
                     </Link>

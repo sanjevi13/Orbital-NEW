@@ -1,17 +1,8 @@
-import { createContext, useEffect, useReducer} from "react";
+import { createContext, useReducer} from "react";
 import AuthReducer from "./AuthReducer";
 
 const INITIAL_STATE = {
-    user : {
-        _id :"6289b5affd744e185bfd0213",
-        username:"jane",
-        email:"janemail",
-        password:"$2b$10$ehwbadY4ngtnoU8oHaDrk.2FTgMsroi1NvW5JaF7UomJAG0pefXnu",
-        profilePicture:"",
-        followers:[],
-        following:[],
-        isAdmin:true
-    },
+    user : null,
     isFetching: false,
     error: false
 };
@@ -19,14 +10,15 @@ const INITIAL_STATE = {
 export const AuthContext = createContext(INITIAL_STATE);
 
 export const AuthContextProvider = ({children}) => { //children here is what it wraps 
-    const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE); //dispatch function sends data to reducer
+    //dispatch function sends data to given reducer
+    const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
     
     return ( 
-        <AuthContext.Provider value= {{
+        <AuthContext.Provider value= {{ //this is the data available in the Context
             user: state.user,
             isFetching: state.isFetching,
             error: state.error,
-            dispatch,
+            dispatch, 
         }}
         >
             {children}

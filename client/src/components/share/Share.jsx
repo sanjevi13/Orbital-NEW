@@ -43,7 +43,7 @@ export default function Share() {
                 src={
                 user.profilePicture 
                     ? PF + user.profilePicture
-                    : PF + "person/maguire.png"
+                    : PF + "noProfilePic.jpg"
                 }  
                 alt="" 
                 className="shareProfileImg"/>
