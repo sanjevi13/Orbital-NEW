@@ -8,23 +8,41 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { useContext } from "react";
+import { useContext , useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
+import axios from "axios";
 
 function App() {
-  const { user } = useContext(AuthContext);
+  axios.defaults.withCredentials = true;
+  const { user } = useContext(AuthContext); 
+  const [loggedIn, setLoggedIn] = useState(false);
+  
+  useEffect(()=> { //updates login status
+    const checkLoggedIn = async () => {
+      const res = await axios.get("/auth/login");
+      //console.log(res.data);
+      setLoggedIn(res.data.loggedIn);
+    };
+    checkLoggedIn();
+  }, [loggedIn]);
+  
   return (
     <Router>
       <Switch>
         <Route exact path="/">
           {user ? <Home /> : <Register/>}
         </Route>
-        <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+        
+        <Route path="/login">
+          {user ? <Redirect to="/" /> : <Login />}
+        </Route>
+        
         <Route path="/register">
           {user ? <Redirect to="/" /> : <Register />}
         </Route>
+        
         <Route path="/profile/:username">
-          <Profile />
+          {user ? <Profile /> : <Login />}
         </Route>
       </Switch>
     </Router>

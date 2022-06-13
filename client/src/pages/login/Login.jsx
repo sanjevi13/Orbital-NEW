@@ -6,11 +6,17 @@ import { AuthContext } from "../../context/AuthContext";
 export default function Login() {
     const email = useRef(); //reference to the jsx element
     const password = useRef();
+    const context = useContext(AuthContext); 
     const {user, isFetching, error, dispatch} = useContext(AuthContext); 
     
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         e.preventDefault();
-        loginCall({email: email.current.value, password:password.current.value}, dispatch);
+        await loginCall( //updates the context
+        { 
+            email: email.current.value, 
+            password:password.current.value
+        }, 
+        dispatch);
     }
     return (
     <div className="login">
