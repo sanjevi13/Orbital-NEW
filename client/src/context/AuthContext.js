@@ -4,7 +4,7 @@ import AuthReducer from "./AuthReducer";
 
 const INITIAL_STATE = {
     //if there is a user present in the localstorage, take data from there
-    user:JSON.parse(localStorage.getItem("user")) || null, 
+    user: JSON.parse(localStorage.getItem("user")) || null, 
     isFetching: false,
     error: false
 };

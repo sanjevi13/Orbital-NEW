@@ -11,7 +11,7 @@ const postRoute = require("./routes/posts");
 const path = require("path");
 const multer = require("multer");
 const { json, cookie } = require("express/lib/response");
-
+//for creating session inside client browser
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');

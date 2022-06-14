@@ -12,9 +12,10 @@ export default function Feed({username}) {
 
   useEffect(() => { //action that occurs after you render the page
     const fetchPosts = async () => { //async function can only be declared inside main function
-      const res = username 
+      const res = username //if we are looking at another user
         ? await axios.get("/posts/profile/" + username) 
         : await axios.get("/posts/timeline/" + user._id);
+        console.log(res.data);
         
         setPosts(res.data.sort((p1,p2) => {
           return new Date(p2.createdAt) - new Date(p1.createdAt);

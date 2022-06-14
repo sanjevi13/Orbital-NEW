@@ -15,16 +15,7 @@ import axios from "axios";
 function App() {
   axios.defaults.withCredentials = true;
   const { user } = useContext(AuthContext); 
-  const [loggedIn, setLoggedIn] = useState(false);
-  
-  useEffect(()=> { //updates login status
-    const checkLoggedIn = async () => {
-      const res = await axios.get("/auth/login");
-      //console.log(res.data);
-      setLoggedIn(res.data.loggedIn);
-    };
-    checkLoggedIn();
-  }, [loggedIn]);
+
   
   return (
     <Router>
