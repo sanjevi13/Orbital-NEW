@@ -54,12 +54,27 @@ export default function Login() {
                         ref={password}
                         required
                     />
-                    <div>{userErr? userErr: null}</div>
-                    <div>{passwordErr? passwordErr: null}</div>
+                    <div
+                        className="userErr"
+                        style={{
+                            display: userErr? 'block': 'none'
+                        }}
+                    >
+                    User not found
+                    </div>
+                    <div
+                        className="passwordErr" 
+                        style={{
+                            display: passwordErr? 'block': 'none' 
+                        }}
+                    >
+                    Password not found
+                    </div>
                     <button 
                         className="loginButton" 
                         type="submit"
-                        disabled={isFetching}>
+                        disabled={isFetching}
+                    >
                         {isFetching ? "loading" : "Log In" }
                     </button>
                     <span className="loginForgot">Forgot password</span>

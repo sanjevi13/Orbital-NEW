@@ -53,6 +53,13 @@
     outline: none;
 }
 
+.userErr{
+    margin: 0 auto;
+}
+
+.passwordErr{
+    margin: 0 auto;
+}
 .loginButton{
     height: 50px;
     border-radius:10px;
