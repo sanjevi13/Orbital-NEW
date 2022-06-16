@@ -10,7 +10,6 @@ export default function CloseFriend({user}) {
     const addName = async () => {
       const userInfo = (await axios.get(`/users/?userID=${user}`)).data;
       setName(userInfo.username);
-      console.log(userInfo);
     };
     addName();
   }, [name]);

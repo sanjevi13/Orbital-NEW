@@ -3,10 +3,14 @@ import {Search, Person, Chat, Notifications} from '@mui/icons-material';
 import {Link} from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import {logOut} from "../../apiCalls";
 function Topbar() {
-    const {user} = useContext(AuthContext);
+    const {user, dispatch} = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    
+    const handleLogOut = () => {
+        logOut(dispatch); //update context to set user to null
+        window.location.reload(); //refresh page
+    }
     return (
         <div className="topbarContainer">
             <div className="topbarLeft"> 
@@ -23,7 +27,7 @@ function Topbar() {
 
             <div className="topbarRight">
                 <div className="topbarLinks">
-                    <span className="topbarLink">Home</span>
+                    {/* <span className="topbarLink">Home</span> */}
                     {/* <span className="topbarLink">Timeline</span> */}
                 </div>
                 <div className="topbarIcons">
@@ -40,6 +44,10 @@ function Topbar() {
                         <span className="topbarIconBadge">3</span>
                     </div>
                 </div>
+                <div 
+                    className="logOutButton"
+                    onClick={handleLogOut}
+                >Logout</div>
                 <Link to={"/profile/"+ user.username}>
                     <img 
                         src={

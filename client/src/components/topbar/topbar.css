@@ -69,6 +69,10 @@
     display: flex;
 }
 
+.logOutButton{
+    cursor:pointer;
+}
+
 .topbarIconItem{
     margin-right: 15px;
     cursor: pointer;
