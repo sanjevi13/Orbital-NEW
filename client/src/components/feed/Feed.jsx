@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/AuthContext";
 export default function Feed({username}) {
   const [posts, setPosts] = useState([]); //variable that exists between rendering of component
   const {user} = useContext(AuthContext);
-
+  
   useEffect(() => { //action that occurs after you render the page
     const fetchPosts = async () => { //async function can only be declared inside main function
       const res = username 
