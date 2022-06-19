@@ -2,6 +2,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
+import SearchResults from "./components/searchResults/SearchResults";
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,8 +16,6 @@ import axios from "axios";
 function App() {
   axios.defaults.withCredentials = true;
   const { user } = useContext(AuthContext); 
-
-  
   return (
     <Router>
       <Switch>
@@ -34,6 +33,10 @@ function App() {
         
         <Route path="/profile/:username">
           {user ? <Profile /> : <Login />}
+        </Route>
+
+        <Route path="/search/:query">
+          {user ? <SearchResults/>: <Login />}
         </Route>
       </Switch>
     </Router>
