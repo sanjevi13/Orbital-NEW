@@ -3,7 +3,7 @@ import {useContext, useRef} from "react";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { useState } from "react";
-
+import {Link} from "react-router-dom";
 export default function Login() {
     const email = useRef(); //reference to the jsx element
     const password = useRef();
@@ -72,13 +72,17 @@ export default function Login() {
                     </div>
                     <button 
                         className="loginButton" 
-                        type="submit"
+                        // type="submit"
                         disabled={isFetching}
                     >
                         {isFetching ? "loading" : "Log In" }
                     </button>
-                    <span className="loginForgot">Forgot password</span>
-                    <button className="loginRegisterButton">Create new account</button>
+                    {/* <span className="loginForgot">Forgot password</span> */}
+                    <Link to={"/register"} className="loginRegisterButtonLink">
+                        <button className="loginRegisterButton">
+                            Create new account
+                        </button>
+                    </Link>
                 </form>
             </div>
         </div>

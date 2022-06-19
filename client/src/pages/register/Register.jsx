@@ -68,10 +68,9 @@ export default function Register() {
                     type="password"
                     />
                     <button className="loginButton" type="submit">Sign up</button>
-                    <Link to={"/login"} >
+                    <Link to={"/login"} className="loginLink">
                         <button className="loginRegisterButton">Log into your account</button>
                     </Link>                
-                    
                 </form>
             </div>
         </div>
