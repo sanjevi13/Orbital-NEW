@@ -8,8 +8,6 @@ const morgan = require('morgan');
 const userRoute = require('./routes/users');
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-const conversationRoute = require("./routes/conversations");
-const messageRoute = require("./routes/messages");
 const path = require("path");
 const multer = require("multer");
 const { json, cookie } = require("express/lib/response");
@@ -21,8 +19,7 @@ const session = require('express-session');
 
 
 dotenv.config();
-//mongodb+srv://glyfy:glyfy@cluster0.j2bnm.mongodb.net/orbital?retryWrites=true&w=majority
-//mongodb+srv://sanjevi13:T0nYSt4rk@cluster0.itmtd.mongodb.net/?retryWrites=true&w=majority
+
 mongoose.connect('mongodb+srv://glyfy:glyfy@cluster0.j2bnm.mongodb.net/orbital?retryWrites=true&w=majority', {useNewURLParser: true}, () => {
     console.log("Connected to MongoDB");
 });
@@ -58,8 +55,6 @@ app.use(morgan("common"));
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
-app.use("/api/conversations", conversationRoute);
-app.use("/api/messages", messageRoute);
 
 //uploading files to server
 const storage = multer.diskStorage({
