@@ -12,6 +12,7 @@ import {
 import { useContext , useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
 import axios from "axios";
+import Messenger from "./pages/messenger/Messenger";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -29,6 +30,10 @@ function App() {
         
         <Route path="/register">
           {user ? <Redirect to="/" /> : <Register />}
+        </Route>
+
+        <Route path="/messenger">
+          {!user ? <Redirect to="/" /> : <Messenger/>}
         </Route>
         
         <Route path="/profile/:username">
