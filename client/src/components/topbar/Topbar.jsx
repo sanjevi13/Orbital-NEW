@@ -44,18 +44,18 @@ function Topbar() {
                     {/* <span className="topbarLink">Timeline</span> */}
                 </div>
                 <div className="topbarIcons">
-                    <div className="topbarIconItem">
+                    {/* <div className="topbarIconItem">
                         <Person/>
                         <span className="topbarIconBadge">2</span>
-                    </div>
-                    <div className="topbarIconItem">
+                    </div> */}
+                    <div className="topbarIconItem" onClick={() => history.push("/messenger")}>      
                         <Chat/>
-                        <span className="topbarIconBadge">8</span>
+                        {/* <span className="topbarIconBadge"></span> */}
                     </div>
-                    <div className="topbarIconItem">
+                    {/* <div className="topbarIconItem">
                         <Notifications/>
                         <span className="topbarIconBadge">3</span>
-                    </div>
+                    </div> */}
                 </div>
                 <div 
                     className="logOutButton"

@@ -1,3 +1,4 @@
+import React from 'react'
 import "./post.css"
 import {MoreVert} from "@mui/icons-material";
 import { useState, useEffect, useContext } from "react";
@@ -7,38 +8,36 @@ import axios from "axios";
 import { axiosInstance } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
 
-export default function Post({post}) {
-    const [like, setLike] = useState(post.likes.length); //control the number of likes
-    const [isLiked, setIsLiked] = useState(false); //control how many times user can like a post
-    const [user, setUser] = useState({});
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    const {user: currentUser} = useContext(AuthContext);
-    
-    useEffect(() => { //set the user for this post
-        const fetchUser = async () => { //async function can only be declared inside main function
-          const res = await axios.get(`/users/?userID=${post.userID}`);
-          setUser(res.data);
-        };
-        fetchUser();
-      }, [post.userID] //second argument lets you choose what variable change trigger the effect
-    ) 
+export default function friendResult({user}) {
+  const [like, setLike] = useState(post.likes.length); //control the number of likes
+  const [isLiked, setIsLiked] = useState(false); //control how many times user can like a post
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const {user: currentUser} = useContext(AuthContext);
 
-    useEffect(() => { //ensures that setIsLiked is updated to correct status after post is rendered
-        setIsLiked(post.likes.includes(currentUser._id))
-        }, 
-        [currentUser._id, post.likes]
-    )
-    const likeHandler = () => {
-        try {
-            axios.put("/posts/" + post._id + "/like", { userID: currentUser._id })
-        } catch(err){
-            console.log(err)
-        }
-        setLike(isLiked ? like - 1: like + 1); // argument given is the return value of the update function
-        setIsLiked(!isLiked); 
-    }
-    
-    return (
+  useEffect(() => { //set the user for this post
+    const fetchUser = async () => { //async function can only be declared inside main function
+      const res = await axios.get(`/users/?userID=${post.userID}`);
+      setUser(res.data);
+    };
+    fetchUser();
+  }, [post.userID] //second argument lets you choose what variable change trigger the effect
+) 
+
+  useEffect(() => { //ensures that setIsLiked is updated to correct status after post is rendered
+      setIsLiked(post.likes.includes(currentUser._id))
+      }, 
+      [currentUser._id, post.likes]
+  )
+  const likeHandler = () => {
+      try {
+          axios.put("/posts/" + post._id + "/like", { userID: currentUser._id })
+      } catch(err){
+          console.log(err)
+      }
+      setLike(isLiked ? like - 1: like + 1); // argument given is the return value of the update function
+      setIsLiked(!isLiked); 
+  }
+  return (
     <div className="post">
         <div className="postWrapper">
             <div className="postTop">

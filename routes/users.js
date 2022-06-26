@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
+const RedisSessions = require('redis-sessions');
 const User = require('../models/User');
 const { post } = require('./posts');
 
@@ -56,6 +57,18 @@ router.get("/", async (req, res) => {
         res.status(500).json(err);
     }
 })
+
+//get all users that match query
+router.get("/search/:searchQuery", async (req, res)=> {
+    try{
+        const searchQuery = req.params.searchQuery;
+        const users = await User.find({ username: { $regex: searchQuery, $options: 'i' } });
+        res.status(200).json(users);
+    } catch(err){
+        res.status(500).json(err);    
+    }
+})
+
 //get friends
 router.get("/friends/:userID", async (req, res) => {
     try{
