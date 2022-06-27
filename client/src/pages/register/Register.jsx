@@ -1,9 +1,10 @@
 import "./register.css";
-import {useRef} from "react";
+import {useRef, useContext} from "react";
 import {useHistory} from "react-router";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import { axiosInstance } from "../../config";
+import { AuthContext } from "../../context/AuthContext";
 
 
 export default function Register() {
@@ -12,6 +13,8 @@ export default function Register() {
     const password = useRef();
     const passwordAgain = useRef();
     const history = useHistory();
+    const context = useContext(AuthContext); 
+    const {user, isFetching, error, dispatch} = useContext(AuthContext); 
     
     const handleClick = async (e) => {
         e.preventDefault();
@@ -24,12 +27,13 @@ export default function Register() {
                 password: password.current.value
             }
             try {
-                const res = await axiosInstance.post("/auth/register", user);     
+                const res = await axios.post("/auth/register", user);     
                 history.push("/login");        
             } catch(err){
                 console.log(err);
             }
         }
+
     }
     
     return (
@@ -55,6 +59,7 @@ export default function Register() {
                     required 
                     className="loginInput" 
                     type="password"
+                    minLength="6"
                     />
                     <input 
                     placeholder="Password again" 
@@ -62,12 +67,12 @@ export default function Register() {
                     required 
                     className="loginInput" 
                     type="password"
+                    minLength="6"
                     />
                     <button className="loginButton" type="submit">Sign up</button>
-                    <Link to={"/login"} >
+                    <Link to={"/login"} className="loginLink">
                         <button className="loginRegisterButton">Log into your account</button>
                     </Link>                
-                    
                 </form>
             </div>
         </div>

@@ -1,4 +1,5 @@
-export const LoginStart = (userCredentials) => ({
+//tells reducer what to update
+export const LoginStart = () => ({
     type:"LOGIN_START"
 });
 
@@ -11,3 +12,17 @@ export const LoginFailure = (error) => ({
     type:"LOGIN_FAILURE",
     payload:error
 });
+
+export const LogOut = () => ({
+    type:"LOGOUT"
+})
+
+export const Follow = (userID) => ({
+    type:"FOLLOW",
+    payload: userID
+})
+
+export const Unfollow = (userID) => ({
+    type:"UNFOLLOW",
+    payload: userID
+})

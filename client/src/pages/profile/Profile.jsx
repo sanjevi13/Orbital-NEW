@@ -15,11 +15,14 @@ export default function Profile() {
 
     useEffect(() => { //action that occurs after you render the page
         const fetchUser = async () => { //async function can only be declared inside main function
-          const res = await axiosInstance.get(`/users/?username=${username}`);
-          setUser(res.data);
+            const res = await axios.get(`/users/?username=${username}`);
+            // console.log(res);
+            setUser(res.data); //update the state and re-render the page
         }
         fetchUser();
       }, [username]) //second argument lets you choose what variable change trigger the effect
+    
+
     return (
     <>
     <Topbar/>
@@ -28,8 +31,8 @@ export default function Profile() {
         <div className="profileRight">
             <div className="profileRightTop">
                 <div className="profileCover">
-                    <img src= {user.coverPicture || PF + "person/maguire.png"} alt="" className="profileCoverImg" />
-                    <img src= {user.coverPicture || PF + "person/maguire.png"} alt="" className="profileUserImg" />
+                    <img src= {user.coverPicture ? PF + user.coverPicture : PF + "noCover.jpg"} alt="" className="profileCoverImg" />
+                    <img src= {user.profilePicture ? PF + user.coverPicture : PF + "noProfilePic.jpg"} alt="" className="profileUserImg" />
                 </div>
             </div>
             <div className="profileInfo">
@@ -38,7 +41,7 @@ export default function Profile() {
             </div>
             <div className="profileRightBottom">
                 <Feed username={username}/>
-                <Rightbar user={user}/>    
+                {Object.keys(user).length !== 0 ? <Rightbar user={user}/> : null}  
             </div>
         </div> 
     </div>   
