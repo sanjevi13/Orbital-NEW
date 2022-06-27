@@ -2,33 +2,18 @@ import "./login.css"
 import {useContext, useRef} from "react";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
-import { useState } from "react";
-import {Link} from "react-router-dom";
+
 export default function Login() {
     const email = useRef(); //reference to the jsx element
     const password = useRef();
-    const context = useContext(AuthContext); 
     const {user, isFetching, error, dispatch} = useContext(AuthContext); 
-    const [userErr, setUserErr] = useState("");
-    const [passwordErr, setPasswordErr] = useState("");
-
-    const handleClick = async (e) => {
+    
+    const handleClick = (e) => {
         e.preventDefault();
-        const res = await loginCall( //updates the context
-        { 
-            email: email.current.value, 
-            password:password.current.value
-        }, 
-        dispatch);
-        if (res === "wrong password"){
-            setUserErr("");
-            setPasswordErr("Wrong password");
-        }
-        else if(res === "user not found"){
-            setPasswordErr("");
-            setUserErr("User not found");
-        }
+        loginCall({email: email.current.value, password:password.current.value}, dispatch);
     }
+
+    console.log(user);
     return (
     <div className="login">
         <div className="loginWrapper">
@@ -40,49 +25,25 @@ export default function Login() {
             </div>
             <div className="loginRight">
                 <form className="loginBox" onSubmit={handleClick}>
+                    <input placeholder="Email" 
+                    type="email" 
+                    className="loginInput" 
+                    ref={email}
+                    required/>
                     <input 
-                        placeholder="Email" 
-                        type="email" 
-                        className="loginInput" 
-                        ref={email}
-                        required
+                    placeholder="Password" 
+                    type="password" 
+                    className="loginInput" 
+                    ref={password}
+                    required
                     />
-                    <input 
-                        placeholder="Password" 
-                        type="password" 
-                        className="loginInput" 
-                        ref={password}
-                        required
-                    />
-                    <div
-                        className="userErr"
-                        style={{
-                            display: userErr? 'block': 'none'
-                        }}
-                    >
-                    User not found
-                    </div>
-                    <div
-                        className="passwordErr" 
-                        style={{
-                            display: passwordErr? 'block': 'none' 
-                        }}
-                    >
-                    Password not found
-                    </div>
-                    <button 
-                        className="loginButton" 
-                        // type="submit"
-                        disabled={isFetching}
-                    >
-                        {isFetching ? "loading" : "Log In" }
+                    <button className="loginButton" 
+                    type="submit"
+                    disabled={isFetching}>
+                    {isFetching ? "loading" : "Log In" }
                     </button>
-                    {/* <span className="loginForgot">Forgot password</span> */}
-                    <Link to={"/register"} className="loginRegisterButtonLink">
-                        <button className="loginRegisterButton">
-                            Create new account
-                        </button>
-                    </Link>
+                    <span className="loginForgot">Forgot password</span>
+                    <button className="loginRegisterButton">Create new account</button>
                 </form>
             </div>
         </div>

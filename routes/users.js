@@ -1,8 +1,8 @@
+const req = require('express/lib/request');
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const RedisSessions = require('redis-sessions');
+const res = require('express/lib/response');
 const User = require('../models/User');
-const { post } = require('./posts');
 
 //update user
 router.put("/:id", async (req, res) => {
@@ -58,38 +58,6 @@ router.get("/", async (req, res) => {
     }
 })
 
-//get all users that match query
-router.get("/search/:searchQuery", async (req, res)=> {
-    try{
-        const searchQuery = req.params.searchQuery;
-        const users = await User.find({ username: { $regex: searchQuery, $options: 'i' } });
-        res.status(200).json(users);
-    } catch(err){
-        res.status(500).json(err);    
-    }
-})
-
-//get friends
-router.get("/friends/:userID", async (req, res) => {
-    try{
-        const user = await User.findById(req.params.userID);
-        const friends = await Promise.all( //use Promise each iteration requires querying database
-            user.following.map(friendId => {
-                return User.findById(friendId);
-            })
-        );
-        let friendList = [];
-
-        friends.map(friend => {
-            const {_id, username, profilePicture} = friend;
-            friendList.push({_id, username, profilePicture});
-        })
-        res.status(200).json(friendList);
-    } catch(err){
-        res.status(500).json(err);
-    }
-})
-
 //follow a user
 router.put("/:id/follow", async (req, res) => {
     if(req.body.userID !== req.params.id){
@@ -106,7 +74,7 @@ router.put("/:id/follow", async (req, res) => {
                 res.status(403).json("you already follow this user");
             }
         } catch(err){
-            res.status(500).json(err);
+            send500(err);
         }
     } else{
         res.status(403).json("you cant follow yourself");
@@ -129,7 +97,7 @@ router.put("/:id/unfollow", async (req, res) => {
                 res.status(403).json("you already dont follow this user");
             }
         } catch(err){
-            res.status(500).json(err);
+            send500(err);
         }
     } else{
         res.status(403).json("you cant unfollow yourself");

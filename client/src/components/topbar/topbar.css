@@ -44,7 +44,7 @@
 
 .searchInput {
     border: none; 
-    width: 300%;
+    width: 70%;
 }
 
 .searchInput:focus {
@@ -67,10 +67,6 @@
 
 .topbarIcons{
     display: flex;
-}
-
-.logOutButton{
-    cursor:pointer;
 }
 
 .topbarIconItem{

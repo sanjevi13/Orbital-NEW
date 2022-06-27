@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema(
     {
-        userID:{ 
+        userID:{ //lmao
             type:String,
             required:true
         },
@@ -19,7 +19,7 @@ const PostSchema = new mongoose.Schema(
         }
 
     },
-    {timestamps: true}
+    { timestamps: true}
 )
 
 module.exports = mongoose.model("Post", PostSchema);

@@ -1,41 +1,27 @@
 import "./post.css"
 import {MoreVert} from "@mui/icons-material";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {format} from "timeago.js";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import { axiosInstance } from "../../config";
-import { AuthContext } from "../../context/AuthContext";
 
 export default function Post({post}) {
-    const [like, setLike] = useState(post.likes.length); //control the number of likes
-    const [isLiked, setIsLiked] = useState(false); //control how many times user can like a post
+    const [like, setLike] = useState(post.likes.length); 
+    const [isLiked, setIsLiked] = useState(false);
     const [user, setUser] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    const {user: currentUser} = useContext(AuthContext);
-    
-    useEffect(() => { //set the user for this post
+    useEffect(() => { //action that occurs after you render the page
         const fetchUser = async () => { //async function can only be declared inside main function
-          const res = await axios.get(`/users/?userID=${post.userID}`);
+          const res = await axiosInstance.get(`/users/?userID=${post.userID}`);
           setUser(res.data);
-        };
-        fetchUser();
-      }, [post.userID] //second argument lets you choose what variable change trigger the effect
-    ) 
-
-    useEffect(() => { //ensures that setIsLiked is updated to correct status after post is rendered
-        setIsLiked(post.likes.includes(currentUser._id))
-        }, 
-        [currentUser._id, post.likes]
-    )
-    const likeHandler = () => {
-        try {
-            axios.put("/posts/" + post._id + "/like", { userID: currentUser._id })
-        } catch(err){
-            console.log(err)
         }
+        fetchUser();
+      }, [post.userID]) //second argument lets you choose what variable change trigger the effect
+
+    const likeHandler = () => {
         setLike(isLiked ? like - 1: like + 1); // argument given is the return value of the update function
-        setIsLiked(!isLiked); 
+        setIsLiked(!isLiked);
     }
     
     return (
@@ -44,10 +30,7 @@ export default function Post({post}) {
             <div className="postTop">
                 <div className="postTopLeft">
                     <Link to={"profile/" + user.username}>
-                    <img src={user.profilePicture ? 
-                            PF + user.profilePicture : 
-                            PF + "noProfilePic.jpg"
-                        } 
+                    <img src={user.profilePicture || PF + "person/duck.jpg"} 
                     alt="" className="postProfileImg" />
                     </Link>
                     <span className="postUsername">{user.username}</span>
