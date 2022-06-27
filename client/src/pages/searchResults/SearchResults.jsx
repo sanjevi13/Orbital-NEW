@@ -17,7 +17,7 @@ export default function SearchResults() {
       const getUsers = async () => {
         //get all users that match the search query
         const res = await axios.get("/users/search/" + query);
-        console.log(users);
+        console.log(res);
         setUsers(res.data);
       }
       getUsers();
