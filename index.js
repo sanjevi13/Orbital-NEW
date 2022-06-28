@@ -51,7 +51,7 @@ app.use(session({
 }))
 
 //some security stuff
-app.use(helmet());
+//app.use(helmet());
 app.use(morgan("common"));
 
 //routes 
