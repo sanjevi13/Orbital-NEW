@@ -17,7 +17,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   useEffect(()=> { //obtain all of user's friends 
     const getFriends = async () => {
       try{
-        const friendList = await axios("/users/friends/" + user._id);
+        const friendList = await axios("/api/users/friends/" + user._id);
         setFriends(friendList.data);
       } catch(err){
         console.log(err);
@@ -33,12 +33,12 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
     console.log(user);
     try{
       if(followed){
-        await axios.put("/users/"+ user._id + "/unfollow", {
+        await axios.put("/api/users/"+ user._id + "/unfollow", {
           userID: currentUser._id
         })
         dispatch({type:"UNFOLLOW", payload: user._id})
       } else {
-        await axios.put("/users/"+ user._id + "/follow", {
+        await axios.put("/api/users/"+ user._id + "/follow", {
           userID: currentUser._id
         })
         dispatch({type:"FOLLOW", payload: user._id})
@@ -57,7 +57,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
         </div>
         <h4 className="rightbarTitle">Online friends</h4>
         <ul className="rightbarFriendList">
-          {Users.map((user) => (
+          {Users?.map((user) => (
             <Online key={user.id} user={user}/>
           ))}
         </ul>
