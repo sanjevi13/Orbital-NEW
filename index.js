@@ -34,7 +34,7 @@ app.use(express.json());
 
 //create sessions
 app.use(cors({
-  origin:"http://localhost:5000",
+  origin:"https://nusconnectm2.herokuapp.com/",
   methods:["GET", "POST", "PUT"],
   credentials: true
 }))
