@@ -45,7 +45,7 @@ export default function Messenger() {
         socket.current.on("getUsers", users => {
             setOnlineUsers(user.following.filter( (f) => users.some((u) => u.userId === f)));
         })
-    }, [user]);
+    }, [user]); 
 
     useEffect(() => {
         const getConversations = async () => {
