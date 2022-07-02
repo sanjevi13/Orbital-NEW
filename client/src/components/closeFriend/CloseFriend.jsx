@@ -22,8 +22,8 @@ export default function CloseFriend({user}) {
           src = { user.profilePicture ? PF + user.profilePicture: PF + "noProfilePic.jpg" } 
           alt="" 
         />
-        <span className="sidebarFriendName"> tst </span>
-        {/* {name ? name : "why are u"}  */}
+        <span className="sidebarFriendName"> {name ? name : "why are u"} </span>
+        
     </li> 
   )
 }
