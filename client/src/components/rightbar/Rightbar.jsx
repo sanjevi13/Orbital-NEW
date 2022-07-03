@@ -11,9 +11,10 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const {user: currentUser, dispatch} = useContext(AuthContext);
+  // console.log(user);
+  // console.log(currentUser.following);
   const [followed,  setFollowed] = useState(currentUser.following.includes(user?._id));
-  console.log(user);
-  console.log(currentUser.following);
+
   
   useEffect(()=> { //obtain all of user's friends 
     const getFriends = async () => {
@@ -32,7 +33,6 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   }, [user]);
   
   const handleClick = async () => {
-    console.log(user);
     try{
       if(followed){
         await axios.put("/api/users/"+ user._id + "/unfollow", {
@@ -70,6 +70,9 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const ProfileRightBar = () => {
     return (
       <>
+      {console.log(user)};
+      {console.log(currentUser)};
+      {console.log(followed)};
       {user.username !== currentUser.username && (
         <button className="rightbarFollowButton" onClick={handleClick}>
           {followed ? "Unfollow" : "Follow"}

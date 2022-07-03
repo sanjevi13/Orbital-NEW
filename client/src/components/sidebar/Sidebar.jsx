@@ -25,7 +25,7 @@ export default function Sidebar() {
         <ul className="sidebarFriendList">
           <div className="sidebarFriendListHeader">Friends</div>
           {user.following.map(u => 
-            <CloseFriend key={u.id} user={u}/>  
+            <CloseFriend key={u._id} user={u}/>  
           )}
         </ul>
       </div>
