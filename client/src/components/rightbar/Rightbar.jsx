@@ -11,8 +11,9 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const {user: currentUser, dispatch} = useContext(AuthContext);
-  // console.log(user);
-  // console.log(currentUser.following);
+  {console.log(user._id)}
+  {console.log(currentUser.following)}
+  {console.log(currentUser.following.includes(user?._id))}
   const [followed,  setFollowed] = useState(currentUser.following.includes(user?._id));
 
   
@@ -70,10 +71,6 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const ProfileRightBar = () => {
     return (
       <>
-      {console.log(user._id)}
-      {console.log(currentUser.following)}
-      {console.log(currentUser.following.includes(user?._id))}
-      {console.log(followed)}
       {user.username !== currentUser.username && (
         <button className="rightbarFollowButton" onClick={handleClick}>
           {followed ? "Unfollow" : "Follow"}
