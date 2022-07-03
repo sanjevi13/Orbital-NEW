@@ -12,7 +12,8 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const [friends, setFriends] = useState([]);
   const {user: currentUser, dispatch} = useContext(AuthContext);
   const [followed,  setFollowed] = useState(currentUser.following.includes(user?._id));
-
+  console.log(user);
+  console.log(currentUser.following);
   
   useEffect(()=> { //obtain all of user's friends 
     const getFriends = async () => {
