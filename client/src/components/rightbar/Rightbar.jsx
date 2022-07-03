@@ -11,7 +11,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const {user: currentUser, dispatch} = useContext(AuthContext);
-  const [followed,  setFollowed] = useState(currentUser.following.includes(user?.id));
+  const [followed,  setFollowed] = useState(currentUser.following.includes(user?._id));
 
   
   useEffect(()=> { //obtain all of user's friends 
@@ -58,7 +58,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
         <h4 className="rightbarTitle">Online friends</h4>
         <ul className="rightbarFriendList">
           {Users?.map((user) => (
-            <Online key={user.id} user={user}/>
+            <Online key={user._id} user={user}/>
           ))}
         </ul>
       </>
