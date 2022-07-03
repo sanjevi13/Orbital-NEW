@@ -70,9 +70,9 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const ProfileRightBar = () => {
     return (
       <>
-      {console.log(user)};
-      {console.log(currentUser)};
-      {console.log(followed)};
+      {console.log(user._id)};
+      {console.log(currentUser.following)};
+      {console.log(currentUser.following.includes(user?._id))};
       {user.username !== currentUser.username && (
         <button className="rightbarFollowButton" onClick={handleClick}>
           {followed ? "Unfollow" : "Follow"}
