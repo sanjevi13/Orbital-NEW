@@ -17,7 +17,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   useEffect(()=> { //obtain all of user's friends 
     const getFriends = async () => {
       try{
-        console.log(user);
+        // console.log(user);
         const friendList = await axios("/api/users/friends/" + user?._id);
         setFriends(friendList.data);
       } catch(err){
@@ -96,7 +96,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
       <h4 className="rightbarTitle">User friends</h4>
       <div className="rightbarFollowings">
         {friends?.map((friend) => (
-          <Link to = {"api/profile/" + friend.username} style={{textDecoration:"none"}}> 
+          <Link to = {"/api/profile/" + friend.username} style={{textDecoration:"none"}}> 
             <div className="rightbarFollowing">
               <img src = {
                     friend.profilePicture

@@ -9,7 +9,7 @@ export default function CloseFriend({user}) {
   useEffect(() => { //adds names of friends to sidebar
     const addName = async () => {
       const userInfo = (await axios.get(`/api/users/?userID=${user}`)).data;
-      console.log(userInfo);
+      // console.log(userInfo);
       setName(userInfo.username);
     };
     addName();
