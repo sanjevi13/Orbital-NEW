@@ -7,13 +7,6 @@ import axios from "axios";
 import { axiosInstance } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
 
-<<<<<<< Updated upstream
-export default function FriendResult({user}) {
-    return (
-        <div>Coming soon</div>
-    )
-}
-=======
 export default function friendResult({user}) {
     return <div>Comings</div>
 }
@@ -83,4 +76,3 @@ export default function friendResult({user}) {
 //     </div>
 //   )
 // }
->>>>>>> Stashed changes
