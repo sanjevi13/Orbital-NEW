@@ -11,14 +11,13 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const {user: currentUser, dispatch} = useContext(AuthContext);
-  {console.log(user?._id)}
-  {console.log(currentUser.following)};
-  {console.log(currentUser.following.includes(user?._id))};
   const [followed,  setFollowed] = useState(currentUser.following.includes(user?._id));
-  {console.log(followed)};
+  
+  useEffect(() => { //hack way to ensure unfollow renders correctly
+    setFollowed(currentUser.following.includes(user?._id))
+  }, [user]);
   
   useEffect(()=> { //obtain all of user's friends 
-    // console.log(currentUser.following);
     const getFriends = async () => {
       try{
         const friendList = await axios("/users/friends/" + user._id);
@@ -28,7 +27,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
       }
     };
     getFriends();
-  }, [currentUser]);
+  }, [user]);
   
   const handleClick = async () => {
     try{
@@ -43,10 +42,11 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
         })
         dispatch({type:"FOLLOW", payload: user._id})
       }
+      setFollowed(!followed);
     }catch(err){
       console.log(err);
     }
-    setFollowed(!followed)
+    
   }
   //rightbar will differ based off what page you are on
   const HomeRightBar = () => {
