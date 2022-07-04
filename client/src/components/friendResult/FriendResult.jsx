@@ -1,5 +1,5 @@
 import React from 'react'
-import "./post.css"
+// import "./post.css"
 import {MoreVert} from "@mui/icons-material";
 import { useState, useEffect, useContext } from "react";
 import {format} from "timeago.js";
@@ -8,7 +8,7 @@ import axios from "axios";
 import { axiosInstance } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
 
-export default function friendResult({user}) {
+export default function FriendResult({user}) {
   const [like, setLike] = useState(post.likes.length); //control the number of likes
   const [isLiked, setIsLiked] = useState(false); //control how many times user can like a post
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
