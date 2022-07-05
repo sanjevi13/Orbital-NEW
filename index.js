@@ -21,9 +21,9 @@ const session = require('express-session');
 
 
 dotenv.config();
-//mongodb+srv://glyfy:glyfy@cluster0.j2bnm.mongodb.net/orbital?retryWrites=true&w=majority
-//mongodb+srv://sanjevi13:T0nYSt4rk@cluster0.itmtd.mongodb.net/?retryWrites=true&w=majority
-mongoose.connect('mongodb+srv://glyfy:glyfy@cluster0.j2bnm.mongodb.net/orbital?retryWrites=true&w=majority', {useNewURLParser: true}, () => {
+mongoose.connect(process.env.MONGO_URL, 
+  {useNewURLParser: true}, 
+  () => {
     console.log("Connected to MongoDB");
 });
 
