@@ -14,7 +14,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   {console.log(user?._id)}
   {console.log(currentUser.following)};
   {console.log(currentUser.following.includes(user?._id))};
-  const [followed,  setFollowed] = useState(currentUser.following.includes(user?._id));
+  const [followed,  setFollowed] = useState(false);
   {console.log(followed)};
 
   
@@ -32,6 +32,10 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
     if (user){
       getFriends();
     }
+  }, [user]);
+  
+  useEffect(() => { //hack way to ensure unfollow renders correctly
+    setFollowed(currentUser.following.includes(user?._id))
   }, [user]);
   
   const handleClick = async () => {
