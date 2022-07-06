@@ -11,25 +11,26 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const {user: currentUser, dispatch} = useContext(AuthContext);
-  const [followed,  setFollowed] = useState(currentUser.following.includes(user?.id));
+  const [followed,  setFollowed] = useState(false);
 
-  
   useEffect(()=> { //obtain all of user's friends 
     const getFriends = async () => {
       try{
-        const friendList = await axios("/users/friends/" + user._id);
+        console.log(user);
+        const friendList = await axios("/users/friends/" + user?._id);
         setFriends(friendList.data);
       } catch(err){
         console.log(err);
       }
     };
-    //console.log(user)
-    if (user){
-      getFriends();
-    }
+    getFriends();
+  }, [user]);
+
+  useEffect(() => { //ensure follow button renders correctly
+    setFollowed(currentUser.following.includes(user?._id))
   }, [user]);
   
-  const handleClick = async () => {
+  const handleClick = async () => {//function that handles clicking of follow button
     console.log(user);
     try{
       if(followed){

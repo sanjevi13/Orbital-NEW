@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios"; 
 import { useParams } from "react-router";
 import { axiosInstance } from "../../config";
+import {memo} from 'react';
 
 export default function Profile() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -21,7 +22,6 @@ export default function Profile() {
         }
         fetchUser();
       }, [username]) //second argument lets you choose what variable change trigger the effect
-    
 
     return (
     <>
@@ -45,6 +45,7 @@ export default function Profile() {
             </div>
         </div> 
     </div>   
-</>
-  )
+    </>
+    )
 }
+
