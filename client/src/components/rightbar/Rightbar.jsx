@@ -1,4 +1,4 @@
-import "./rightbar.css"
+ import "./rightbar.css"
 import {Users} from "../../dummyData";
 import Online from "../online/Online";
 import {useEffect, useState, useContext} from "react";
@@ -49,6 +49,11 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
     }
     setFollowed(!followed)
   }
+
+  const handleProfile = () => {
+
+  }
+  
   //rightbar will differ based off what page you are on
   const HomeRightBar = () => {
     return(
@@ -75,6 +80,10 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
           {followed ? <Remove/> : <Add/>}
         </button>
       )}
+      {user.username === currentUser.username && (
+        <button className="editProfileButton" onClick={handleProfile}>Edit Profile</button>
+      )}
+
       <h4 className="rightbarTitle">User Information</h4>
       <div className="rightbarInfo">
         <div className="rightbarInfoItem">
