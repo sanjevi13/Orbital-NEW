@@ -1,7 +1,9 @@
 import "./rightbar.css"
 import {Users} from "../../dummyData";
 import Online from "../online/Online";
-import {useEffect, useState, useContext} from "react";
+import {useEffect, useState, useContext, useRef} from "react";
+import {io} from "socket.io-client";
+import ChatOnline from "../chatOnline/ChatOnline";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -50,6 +52,89 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   }
   //rightbar will differ based off what page you are on
   const HomeRightBar = () => {
+    const [conversations, setConversations] = useState([]);
+    const [currentChat, setCurrentChat] = useState(null);
+    const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState("");
+    const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
+    const socket = useRef();
+    const {user} = useContext(AuthContext);
+    const scrollRef = useRef();
+
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+        socket.current.on("getMessage", (data) => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            });
+        });
+    }, []);
+
+    useEffect(() => {
+        arrivalMessage && 
+            currentChat?.members.includes(arrivalMessage.sender) && 
+            setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat])
+
+    useEffect(() => {
+        socket.current.emit("addUser", user._id);
+        socket.current.on("getUsers", users => {
+            setOnlineUsers(user.following.filter( (f) => users.some((u) => u.userId === f)));
+        })
+    }, [user]);
+
+    useEffect(() => {
+        const getConversations = async () => {
+            try{
+                const res = await axios.get("/conversations/" + user._id);
+                setConversations(res.data); 
+            } catch(err) {
+                console.log(err);
+            }
+        };
+        getConversations();
+    }, [user._id]);
+
+    useEffect(() => {
+        const getMessages = async () => {
+            try{
+                const res = await axios.get("/messages/" + currentChat?._id);
+                setMessages(res.data);
+            } catch(err) {
+                console.log(err);
+            }
+        };
+        getMessages();
+    }, [currentChat]);
+
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        const message = {
+            sender: user._id,
+            text: newMessage,
+            conversationId: currentChat._id,
+        };
+
+        const receiverId = currentChat.members.find(member => member !== user._id)      
+        socket.current.emit("sendMessage", {
+            senderId: user._id,
+            receiverId, 
+            text: newMessage,
+        });
+
+        try{
+            const res = await axios.post("/messages", message);
+            setMessages([...messages, res.data]);
+            setNewMessage("");
+        } catch(err) {
+            console.log(err);
+        }
+    };
+
+
     return(
       <>
         <div className="birthdayContainer">
@@ -57,9 +142,11 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
         </div>
         <h4 className="rightbarTitle">Online friends</h4>
         <ul className="rightbarFriendList">
-          {Users.map((user) => (
-            <Online key={user.id} user={user}/>
-          ))}
+        <div className="chatOnline">
+            <div className="chatOnlineWrapper">
+                <ChatOnline onlineUsers = {onlineUsers} currentId = {user._id} setCurrentChat = {setCurrentChat}/>
+            </div>
+        </div>
         </ul>
       </>
     )
