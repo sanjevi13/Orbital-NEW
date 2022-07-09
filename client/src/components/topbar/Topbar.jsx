@@ -31,7 +31,7 @@ function Topbar() {
                     <form onSubmit={handleSearch}>            
                         <input 
                             className="searchInput"
-                            placeholder="Search for friends, posts or video"  
+                            placeholder="Search for friends"  
                             ref={searchInput}
                         />
                     </form>          
