@@ -32,6 +32,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   
   const handleClick = async () => {//function that handles clicking of follow button
     console.log(user);
+
     try{
       if(followed){
         await axios.put("/users/"+ user._id + "/unfollow", {
@@ -44,10 +45,11 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
         })
         dispatch({type:"FOLLOW", payload: user._id})
       }
+      setFollowed(!followed);
     }catch(err){
       console.log(err);
     }
-    setFollowed(!followed)
+    
   }
 
   const handleProfile = () => {

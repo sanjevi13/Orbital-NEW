@@ -41,7 +41,7 @@ export default function Profile() {
             </div>
             <div className="profileRightBottom">
                 <Feed username={username}/>
-                {Object.keys(user).length !== 0 ? <Rightbar user={user}/> : null}  
+                {Object.keys(user).length !== 0 ? <Rightbar user={user}/>: null} 
             </div>
         </div> 
     </div>   

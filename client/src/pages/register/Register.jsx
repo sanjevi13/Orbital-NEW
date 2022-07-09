@@ -59,6 +59,7 @@ export default function Register() {
                     required 
                     className="loginInput" 
                     type="password"
+                    minLength="6"
                     />
                     <input 
                     placeholder="Password again" 
@@ -66,6 +67,7 @@ export default function Register() {
                     required 
                     className="loginInput" 
                     type="password"
+                    minLength="6"
                     />
                     <button className="loginButton" type="submit">Sign up</button>
                     <Link to={"/login"} className="loginLink">
