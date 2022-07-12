@@ -45,12 +45,12 @@ export default function Messenger() {
         socket.current.on("getUsers", users => {
             setOnlineUsers(user.following.filter( (f) => users.some((u) => u.userId === f)));
         })
-    }, [user]);
+    }, [user]); 
 
     useEffect(() => {
         const getConversations = async () => {
             try{
-                const res = await axios.get("/conversations/" + user._id);
+                const res = await axios.get("/api/conversations/" + user._id);
                 setConversations(res.data); 
             } catch(err) {
                 console.log(err);
@@ -62,7 +62,7 @@ export default function Messenger() {
     useEffect(() => {
         const getMessages = async () => {
             try{
-                const res = await axios.get("/messages/" + currentChat?._id);
+                const res = await axios.get("/api/messages/" + currentChat?._id);
                 setMessages(res.data);
             } catch(err) {
                 console.log(err);
@@ -87,7 +87,7 @@ export default function Messenger() {
         });
 
         try{
-            const res = await axios.post("/messages", message);
+            const res = await axios.post("/api/messages", message);
             setMessages([...messages, res.data]);
             setNewMessage("");
         } catch(err) {
@@ -108,7 +108,7 @@ export default function Messenger() {
         <div className="chatMenu">
             <div className="chatMenuWrapper">
                 <input placeholder = "search for friends" className="chatMenuInput" />
-                {conversations.map((c) => ( // the names on the left side
+                {conversations?.map((c) => ( // the names on the left side
                     <div onClick={() => setCurrentChat(c)}>
                         <Conversation conversation={c} currentUser={user}/>
                     </div>

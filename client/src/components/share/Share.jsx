@@ -22,13 +22,13 @@ export default function Share() {
             data.append("file", file);
             newPost.img = fileName;
             try{
-                await axios.post("/upload", data)
+                await axios.post("/api/upload", data)
             } catch(err){
                 console.log(err);
             }
         }
         try{
-            await axios.post("/posts", newPost);
+            await axios.post("/api/posts", newPost);
             window.location.reload();
         } catch(err) {
             console.log(err);
