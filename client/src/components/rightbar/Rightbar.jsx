@@ -8,6 +8,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import {Add, Remove} from "@mui/icons-material";
+import EditProfile from "../editProfile/EditProfile";
 
 export default function Rightbar({user}) { //user refers to user that rightbar is being generated for
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -172,6 +173,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
       {/* {user.username === currentUser.username && (
         <button className="editProfileButton" onClick={handleProfile}>Edit Profile</button>
       )} */}
+      {<EditProfile/>}
 
       <h4 className="rightbarTitle">User Information</h4>
       <div className="rightbarInfo">
