@@ -24,7 +24,7 @@ export default function EditProfile() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
+        Edit Profile
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update profile details</DialogTitle>
