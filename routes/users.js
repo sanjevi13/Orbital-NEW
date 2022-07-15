@@ -136,4 +136,31 @@ router.put("/:id/unfollow", async (req, res) => {
     }
 })
 
+// set new city, relationship status and profilepicture
+router.post("/changeinfo", async (req,res) => {
+    // try{
+    //     const {newCity, newRelationship} = req.body;
+    //     // const user = await User.findOne({
+    //     //     city: req.user.city,
+    //     //     relationship: req.user.relationship,
+    //     // });
+    //     res.json(req.user.id)
+    //     // User.findByIdAndUpdate(req.user.id, {city: newCity, relationship: newRelationship}).exec();
+        
+    //     // res.status(200).json("user info updated succesfully");
+    // } catch (err) {
+    //     res.status(500).json(err);
+    // }
+    try {
+        const {newCity, newRelationship} = req.body;
+        const user = await User.findOne({
+            email: req.body.email
+        })
+        User.findByIdAndUpdate(user._id, {city: newCity, relationship: newRelationship}).exec();
+        res.status(200).json("user information updated")
+    } catch (err) {
+        res.status(500).json(err)
+    }
+});
+
 module.exports = router;
