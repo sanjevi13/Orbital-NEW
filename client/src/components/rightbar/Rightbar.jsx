@@ -36,11 +36,17 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   }, [user]);
   
   useEffect(() => { //updates the user info in rightbar
-    setCity(user?.city);
-    setCourse(user?.course);
-    setStatus(user?.relationship);
-    console.log(user);
-  }, [user])
+    if (user.username === currentUser.username) {
+      setCity(currentUser?.city);
+      setCourse(currentUser?.course);
+      setStatus(currentUser?.relationship);
+    }
+    else {
+      setCity(user?.city);
+      setCourse(user?.course);
+      setStatus(user?.relationship);   
+    }
+  }, [user, currentUser])
   
   const handleClick = async () => {//function that handles clicking of follow button
     console.log(user);
