@@ -36,7 +36,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   }, [user]);
   
   useEffect(() => { //updates the user info in rightbar
-    if (user.username === currentUser.username) {
+    if (user?.username === currentUser.username) {
       setCity(currentUser?.city);
       setCourse(currentUser?.course);
       setStatus(currentUser?.relationship);
