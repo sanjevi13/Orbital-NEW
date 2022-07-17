@@ -152,11 +152,17 @@ router.post("/changeinfo", async (req,res) => {
     //     res.status(500).json(err);
     // }
     try {
-        const {newCity, newRelationship} = req.body;
+        const {newCity, newRelationship, newCourse} = req.body;
         const user = await User.findOne({
             email: req.body.email
         })
-        User.findByIdAndUpdate(user._id, {city: newCity, relationship: newRelationship}).exec();
+        User.findByIdAndUpdate(user._id, 
+            {
+                city: newCity, 
+                relationship: newRelationship, 
+                course: newCourse
+            }).exec();
+        
         res.status(200).json("user information updated")
     } catch (err) {
         res.status(500).json(err)

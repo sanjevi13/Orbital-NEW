@@ -1,5 +1,4 @@
  import "./rightbar.css"
-import {Users} from "../../dummyData";
 import Online from "../online/Online";
 import {useEffect, useState, useContext, useRef} from "react";
 import {io} from "socket.io-client";
@@ -15,11 +14,14 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   const [friends, setFriends] = useState([]);
   const {user: currentUser, dispatch} = useContext(AuthContext);
   const [followed,  setFollowed] = useState(false);
+  const [city, setCity] = useState("");
+  const [course, setCourse] = useState("");
+  const [status, setStatus] = useState("");
 
   useEffect(()=> { //obtain all of user's friends 
     const getFriends = async () => {
       try{
-        console.log(user);
+        // console.log(user);
         const friendList = await axios("/users/friends/" + user?._id);
         setFriends(friendList.data);
       } catch(err){
@@ -32,6 +34,13 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   useEffect(() => { //ensure follow button renders correctly
     setFollowed(currentUser.following.includes(user?._id))
   }, [user]);
+  
+  useEffect(() => { //updates the user info in rightbar
+    setCity(user?.city);
+    setCourse(user?.course);
+    setStatus(user?.relationship);
+    console.log(user);
+  }, [user])
   
   const handleClick = async () => {//function that handles clicking of follow button
     console.log(user);
@@ -55,9 +64,9 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
     
   }
 
-  const handleProfile = () => {
+  // const handleProfile = () => {
 
-  }
+  // }
   
   //rightbar will differ based off what page you are on
   const HomeRightBar = () => {
@@ -170,27 +179,23 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
           {followed ? <Remove/> : <Add/>}
         </button>
       )}
-      {/* {user.username === currentUser.username && (
-        <button className="editProfileButton" onClick={handleProfile}>Edit Profile</button>
-      )} */}
-      {<EditProfile/>}
+      {user.username === currentUser.username && <EditProfile/>}
 
       <h4 className="rightbarTitle">User Information</h4>
       <div className="rightbarInfo">
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">City:</span>
-          {/* <span className="rightbarInfoValue">{user.city}</span> */}
-          <span className="rightbarInfoValue">Singapore</span>
+          <span className="rightbarInfoValue">{city}</span>
         </div>
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">Course:</span>
           {/* <span className="rightbarInfoValue">{user.relationship === 1 ? "Single" : "Taken"}</span> */}
-          <span className="rightbarInfoValue">Computer Science</span>
+          <span className="rightbarInfoValue">{course}</span>
         </div>
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">Status:</span>
           {/* <span className="rightbarInfoValue">{user.relationship === 1 ? "Single" : "Taken"}</span> */}
-          <span className="rightbarInfoValue">Single</span>
+          <span className="rightbarInfoValue">{status}</span>
         </div>
       </div>
       <h4 className="rightbarTitle">User friends</h4>

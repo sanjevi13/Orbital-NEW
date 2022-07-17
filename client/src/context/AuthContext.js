@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect} from "react";
+import { createContext, useReducer, useEffect } from "react";
 
 import AuthReducer from "./AuthReducer";
 
@@ -13,6 +13,7 @@ export const AuthContext = createContext(INITIAL_STATE);
 
 export const AuthContextProvider = ({children}) => { //children here is what it wraps 
     //dispatch function sends data to given reducer
+    //useReducer sets the state using our predefined INITIAL_STATE
     const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
     
     useEffect(()=>{ //place user state into localstorage
