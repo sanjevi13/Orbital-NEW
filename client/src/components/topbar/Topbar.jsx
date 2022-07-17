@@ -63,12 +63,12 @@ function Topbar() {
                 >Logout</div>
                 <Link to={"/profile/"+ user.username}>
                     <img 
-                        src={
-                        user.profilePicture 
-                            ? PF + user.profilePicture
-                            : PF + "noProfilePic.jpg"
-                        } 
-                        alt="" className="topbarImg" 
+                    src={
+                    user.profilePicture 
+                        ? PF + user.profilePicture
+                        : PF + "noProfilePic.jpg"
+                    } 
+                    alt="" className="topbarImg" 
                     />
                 </Link>
             </div>

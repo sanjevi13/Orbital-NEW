@@ -19,12 +19,6 @@ const AuthReducer = (state, action) => {
                 isFetching: false,
                 error: action.payload
             };
-        case "LOGIN_FAILURE":
-            return{
-                user: false,
-                isFetching: false,
-                error: action.payload
-            };
         case "LOGOUT":
             return{
                 user: null,
@@ -33,9 +27,9 @@ const AuthReducer = (state, action) => {
             }
         case "FOLLOW":
             return{
-                ...state,
+                ...state, //means keep all the other components in the state (isFetching, error)
                 user: {
-                    ...state.user,
+                    ...state.user, //keep all other components apart from following in state.user
                     following: [...state.user.following, action.payload]
                 }
             };
@@ -48,9 +42,18 @@ const AuthReducer = (state, action) => {
                     following: state.user.following.filter(eachFollowing => eachFollowing !== action.payload)
                 }
             };
-        default:
-            return state;
-    }
+        
+        case "UPDATE_PROFILE": //updates state to include new profile details
+            return {
+                ...state, 
+                user: {
+                    ...state.user,
+                    city: action.payload.city,
+                    course: action.payload.course,
+                    relationship: action.payload.status
+                }
+            }
+        }
 };
 
 export default AuthReducer;

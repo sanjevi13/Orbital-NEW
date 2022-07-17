@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios"; 
 import { useParams } from "react-router";
 import { axiosInstance } from "../../config";
-import {memo} from 'react';
+
 
 export default function Profile() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
