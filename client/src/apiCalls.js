@@ -5,6 +5,7 @@ import { LoginStart, LoginFailure, LoginSuccess , LogOut, UpdateProfile} from ".
 export const loginCall = async (userCredential, dispatch) => {
     dispatch(LoginStart()); 
     try {
+        console.log(axios.defaults.baseURL);
         const res = await axios.post("/auth/login", userCredential);
         dispatch(LoginSuccess(res.data));
         return "success";
