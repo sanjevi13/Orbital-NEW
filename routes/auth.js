@@ -43,6 +43,7 @@ router.post('/login', async (req, res)=>{
         }
         else{
             req.session.user = user; //create session
+            console.log(user);
             res.status(200).json(user); 
         }
     } catch(err){

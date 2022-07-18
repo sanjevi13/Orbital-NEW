@@ -1,6 +1,6 @@
 import axios from "axios";  
 import { axiosInstance } from "./config";
-import { LoginStart, LoginFailure, LoginSuccess , LogOut} from "./context/AuthActions";
+import { LoginStart, LoginFailure, LoginSuccess , LogOut, UpdateProfile} from "./context/AuthActions";
 
 export const loginCall = async (userCredential, dispatch) => {
     dispatch(LoginStart()); 
@@ -18,4 +18,8 @@ export const loginCall = async (userCredential, dispatch) => {
 
 export const logOut = (dispatch) => {
     dispatch(LogOut());
+}
+
+export const editProfile = (newDetails, dispatch) => { //newDetails is object containing the updated details
+    dispatch(UpdateProfile(newDetails));
 }

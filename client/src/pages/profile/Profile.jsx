@@ -8,6 +8,7 @@ import axios from "axios";
 import { useParams } from "react-router";
 import { axiosInstance } from "../../config";
 
+
 export default function Profile() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user, setUser] = useState({});
@@ -21,7 +22,6 @@ export default function Profile() {
         }
         fetchUser();
       }, [username]) //second argument lets you choose what variable change trigger the effect
-    
 
     return (
     <>
@@ -41,10 +41,11 @@ export default function Profile() {
             </div>
             <div className="profileRightBottom">
                 <Feed username={username}/>
-                {Object.keys(user).length !== 0 ? <Rightbar user={user}/> : null}  
+                {Object.keys(user).length !== 0 ? <Rightbar user={user}/>: null} 
             </div>
         </div> 
     </div>   
-</>
-  )
+    </>
+    )
 }
+

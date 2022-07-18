@@ -1,0 +1,105 @@
+.searchResult{
+    /* flex:5.5;
+    width: 100%;
+    border-radius: 10px;
+    margin: 30px 0;
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.37); 
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.37); */
+
+    width: 100%;
+    border-radius: 10px;
+    margin: 30px 0;
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.37); 
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.37);
+}
+
+.searchResultWrapper{
+    padding:10px;
+}
+
+.searchResultTop{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.searchResultTopLeft{
+    display: flex;
+    align-items: center;
+}
+
+.followButton{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border:none;
+    background-color: #1872f2;
+    color:white;
+    border-radius: 5px;
+    padding:5px 10px;
+    /* display: flex; */
+    align-items: center;
+    font-size:16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+}
+
+.moreVertWrapper{
+    display: inline-block;
+}
+
+.searchResultProfileImg{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.searchResultUsername{
+    font-style: 15px;
+    font-weight: 500;
+    margin:0 10px;
+}
+
+.searchResultDate{
+    font-size: 12px;
+}
+
+.searchResultCenter{
+    margin: 20px 0;
+}
+
+.searchResultImg{
+    margin-top: 20px; 
+    width: 100%; 
+    max-height: 500px;
+    /* object-fit: contain; */
+}
+
+.searchResultBottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.searchResultBottomLeft{
+    display: flex;
+    align-items: center;
+}
+
+.likeIcon{
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.searchResultLikeCounter{
+    font-size: 15px;
+}
+
+.searchResultCommentText{
+    cursor:pointer;
+    border-bottom: 1px dashed gray;
+    font-size: 15px;
+}
