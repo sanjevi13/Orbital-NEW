@@ -21,9 +21,9 @@ const session = require('express-session');
 
 
 dotenv.config();
-//mongodb+srv://glyfy:glyfy@cluster0.j2bnm.mongodb.net/orbital?retryWrites=true&w=majority
-//mongodb+srv://sanjevi13:T0nYSt4rk@cluster0.itmtd.mongodb.net/?retryWrites=true&w=majority
-mongoose.connect('mongodb+srv://glyfy:glyfy@cluster0.j2bnm.mongodb.net/orbital?retryWrites=true&w=majority', {useNewURLParser: true}, () => {
+mongoose.connect(process.env.MONGO_URL, 
+  {useNewURLParser: true}, 
+  () => {
     console.log("Connected to MongoDB");
 });
 
@@ -34,7 +34,7 @@ app.use(express.json());
 
 //create sessions
 app.use(cors({
-  origin:"http://localhost:5000",
+  origin:"https://nusconnectm2.herokuapp.com/",
   methods:["GET", "POST", "PUT"],
   credentials: true
 }))
@@ -51,7 +51,7 @@ app.use(session({
 }))
 
 //some security stuff
-app.use(helmet());
+//app.use(helmet());
 app.use(morgan("common"));
 
 //routes 

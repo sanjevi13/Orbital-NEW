@@ -53,12 +53,12 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
 
     try{
       if(followed){
-        await axios.put("/users/"+ user._id + "/unfollow", {
+        await axios.put("users/"+ user._id + "/unfollow", {
           userID: currentUser._id
         })
         dispatch({type:"UNFOLLOW", payload: user._id})
       } else {
-        await axios.put("/users/"+ user._id + "/follow", {
+        await axios.put("users/"+ user._id + "/follow", {
           userID: currentUser._id
         })
         dispatch({type:"FOLLOW", payload: user._id})
@@ -206,7 +206,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
       </div>
       <h4 className="rightbarTitle">User friends</h4>
       <div className="rightbarFollowings">
-        {friends.map((friend) => (
+        {friends?.map((friend) => (
           <Link to = {"/profile/" + friend.username} style={{textDecoration:"none"}}> 
             <div className="rightbarFollowing">
               <img src = {
