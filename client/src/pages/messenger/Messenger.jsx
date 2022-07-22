@@ -25,7 +25,7 @@ export default function Messenger() {
 
     useEffect(() => {
         // socket.current = io("ws://localhost:8900");
-        socket.current = io("https://nusconnectm2.herokuapp.com:7231");
+        socket.current = io("ws://nusconnectm2.herokuapp.com:7231");
         socket.current.on("getMessage", (data) => {
             setArrivalMessage({
                 sender: data.senderId,
