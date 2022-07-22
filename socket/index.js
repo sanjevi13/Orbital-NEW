@@ -1,4 +1,4 @@
-const io = require("socket.io")(process.env.PORT || 8900, {
+const io = require("socket.io")(process.env.PORT || 7231, {
     cors:{
         origin: "https://nusconnectm2.herokuapp.com",
         // origin: "http://localhost:3000",
