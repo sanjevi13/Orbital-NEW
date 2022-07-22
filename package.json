@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node socket/index.js",
-    "dev" : "node index.js",
+    "start": "node index.js",
+    "dev" : "node socket/index.js",
     "heroku-postbuild": "cd socket && npm install && cd .. && cd client && npm install && npm run build"
   },
   "repository": {
