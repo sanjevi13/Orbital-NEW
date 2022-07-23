@@ -88,7 +88,7 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
 
     useEffect(() => {
         // socket.current = io("ws://localhost:8900");
-        socket.current = io("ws://nusconnectm2.herokuapp.com")
+        socket.current = io("wss://nusconnectm2.herokuapp.com")
         socket.current.on("getMessage", (data) => {
             setArrivalMessage({
                 sender: data.senderId,
