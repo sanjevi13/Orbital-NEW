@@ -82,13 +82,13 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
-    const socket = useRef();
+    const socket = useRef(); //create reusable socket element
     const {user} = useContext(AuthContext);
     const scrollRef = useRef();
 
     useEffect(() => {
         // socket.current = io("ws://localhost:8900");
-        socket.current = io("https://nusconnectm2.herokuapp.com")
+        socket.current = io("ws://nusconnectm2.herokuapp.com")
         socket.current.on("getMessage", (data) => {
             setArrivalMessage({
                 sender: data.senderId,

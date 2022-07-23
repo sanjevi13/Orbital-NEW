@@ -24,8 +24,8 @@ export default function Messenger() {
     const scrollRef = useRef();
 
     useEffect(() => {
-        // socket.current = io("ws://localhost:8900");
-        socket.current = io("https://nusconnectm2.herokuapp.com:7231");
+        // socket.current = io("ws://localhost:8900"); //connect to the socket server
+        socket.current = io("ws://nusconnectm2.herokuapp.com");
         socket.current.on("getMessage", (data) => {
             setArrivalMessage({
                 sender: data.senderId,
@@ -42,8 +42,8 @@ export default function Messenger() {
     }, [arrivalMessage, currentChat])
 
     useEffect(() => {
-        socket.current.emit("addUser", user._id);
-        socket.current.on("getUsers", users => {
+        socket.current.emit("addUser", user._id); //send event to server
+        socket.current.on("getUsers", users => { //get event from server
             setOnlineUsers(user.following.filter( (f) => users.some((u) => u.userId === f)));
         })
     }, [user]); 
