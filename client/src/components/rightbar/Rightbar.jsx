@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import {Add, Remove} from "@mui/icons-material";
 import EditProfile from "../editProfile/EditProfile";
+import { useAuth } from "../../firebase";
 
 export default function Rightbar({user}) { //user refers to user that rightbar is being generated for
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -171,6 +172,8 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   }
 
   const ProfileRightBar = () => {
+    const currentUser = useAuth();
+    console.log(currentUser);
     return (
       <>
       {user.username !== currentUser.username && (

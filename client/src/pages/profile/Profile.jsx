@@ -8,7 +8,6 @@ import axios from "axios";
 import { useParams } from "react-router";
 import { axiosInstance } from "../../config";
 
-
 export default function Profile() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user, setUser] = useState({});
