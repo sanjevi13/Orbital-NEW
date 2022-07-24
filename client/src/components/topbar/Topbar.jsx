@@ -67,8 +67,8 @@ function Topbar() {
                 <Link to={"/profile/"+ user.username}>
                     <img 
                     src={
-                    firebaseUser.photoURL
-                        ? firebaseUser.photoURL
+                    firebaseUser?.photoURL
+                        ? firebaseUser?.photoURL
                         : PF + "noProfilePic.jpg"
                     } 
                     alt="" className="topbarImg" 
