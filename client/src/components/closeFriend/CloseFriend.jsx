@@ -8,7 +8,8 @@ export default function CloseFriend({user}) {
   
   useEffect(() => { //adds names of friends to sidebar
     const addName = async () => {
-      const userInfo = (await axios.get(`/users/?userID=${user}`)).data;
+      const userInfo = (await axios.get(`users/?userID=${user}`)).data;
+      // console.log(userInfo);
       setName(userInfo.username);
     };
     addName();
@@ -21,7 +22,8 @@ export default function CloseFriend({user}) {
           src = { user.profilePicture ? PF + user.profilePicture: PF + "noProfilePic.jpg" } 
           alt="" 
         />
-        <span className="sidebarFriendName">{name ? name : null}  </span>
+        <span className="sidebarFriendName"> {name ? name : null} </span>
+        
     </li> 
   )
 }

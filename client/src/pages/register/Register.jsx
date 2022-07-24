@@ -32,6 +32,7 @@ export default function Register() {
                 history.push("/login");
                 // add user to firebase    
                 await signup(email.current.value, password.current.value)    
+
             } catch(err){
                 console.log(err);
             }

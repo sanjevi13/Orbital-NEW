@@ -24,7 +24,8 @@ export default function Messenger() {
     const scrollRef = useRef();
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
+        // socket.current = io("ws://localhost:8900"); //connect to the socket server
+        socket.current = io("wss://nusconnectm2.herokuapp.com");
         socket.current.on("getMessage", (data) => {
             setArrivalMessage({
                 sender: data.senderId,
@@ -41,16 +42,16 @@ export default function Messenger() {
     }, [arrivalMessage, currentChat])
 
     useEffect(() => {
-        socket.current.emit("addUser", user._id);
-        socket.current.on("getUsers", users => {
+        socket.current.emit("addUser", user._id); //send event to server
+        socket.current.on("getUsers", users => { //get event from server
             setOnlineUsers(user.following.filter( (f) => users.some((u) => u.userId === f)));
         })
-    }, [user]);
+    }, [user]); 
 
     useEffect(() => {
         const getConversations = async () => {
             try{
-                const res = await axios.get("/conversations/" + user._id);
+                const res = await axios.get("conversations/" + user._id);
                 setConversations(res.data); 
             } catch(err) {
                 console.log(err);
@@ -62,7 +63,7 @@ export default function Messenger() {
     useEffect(() => {
         const getMessages = async () => {
             try{
-                const res = await axios.get("/messages/" + currentChat?._id);
+                const res = await axios.get("messages/" + currentChat?._id);
                 setMessages(res.data);
             } catch(err) {
                 console.log(err);
@@ -87,7 +88,7 @@ export default function Messenger() {
         });
 
         try{
-            const res = await axios.post("/messages", message);
+            const res = await axios.post("messages", message);
             setMessages([...messages, res.data]);
             setNewMessage("");
         } catch(err) {
@@ -108,7 +109,7 @@ export default function Messenger() {
         <div className="chatMenu">
             <div className="chatMenuWrapper">
                 <input placeholder = "search for friends" className="chatMenuInput" />
-                {conversations.map((c) => ( // the names on the left side
+                {conversations?.map((c) => ( // the names on the left side
                     <div onClick={() => setCurrentChat(c)}>
                         <Conversation conversation={c} currentUser={user}/>
                     </div>
