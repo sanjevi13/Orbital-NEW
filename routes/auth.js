@@ -2,25 +2,37 @@ const router = require('express').Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-//get  
-//post
 //register
-router.post('/register', async (req,res) => {
+router.post('/register', async (req,res) => { 
     try{
         //generate new password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         
-        //create new user
-        const newUser = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: hashedPassword,
-        });
+        const checkUsername = await User.findOne({username: req.body.username});
+        console.log(checkUsername);
+        const checkEmail = await User.findOne({email: req.body.email});
+        console.log(checkEmail);
+        
+        if (checkUsername) { //if username already exist
+            res.status(404).json("username already taken");
+        }
+        
+        else if(checkEmail) { //if email already exist
+            res.status(404).json("email already taken");
+        }
+        
+        else { //create new user 
+            const newUser = new User({
+                username: req.body.username,
+                email: req.body.email,
+                password: hashedPassword,
+            });
 
-        //save user and response
-        const user = await newUser.save()
-        res.status(200).json(user); 
+            //save user and response
+            const user = await newUser.save()
+            res.status(200).json(user); 
+        }
     } catch(err){
         res.status(500).json(err);
     }
@@ -52,7 +64,7 @@ router.post('/login', async (req, res)=>{
     }
 })
 
-//check if user is logged in
+//check if user is logged in; NOT USED
 router.get('/login', (req, res)=>{
     try {
         if (req.session.user){
