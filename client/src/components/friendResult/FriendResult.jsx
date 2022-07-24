@@ -26,7 +26,11 @@ export default function FriendResult({user}) {
         })
         dispatch({type:"UNFOLLOW", payload: user._id})
       } else {
-        await axios.put("/users/"+ user._id + "/follow", {
+        await axios.post("/conversations", { //create new conversation
+          senderId: currentUser._id,
+          receiverId: user._id
+        })
+        await axios.put("/users/"+ user._id + "/follow", { //follow user
           userID: currentUser._id
         })
         dispatch({type:"FOLLOW", payload: user._id})

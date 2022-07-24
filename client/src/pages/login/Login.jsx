@@ -4,6 +4,8 @@ import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { useState } from "react";
 import {Link} from "react-router-dom";
+import { login } from "../../firebase";
+
 export default function Login() {
     const email = useRef(); //reference to the jsx element
     const password = useRef();
@@ -12,12 +14,13 @@ export default function Login() {
     const [userErr, setUserErr] = useState("");
     const [passwordErr, setPasswordErr] = useState("");
 
-    const handleClick = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        await login(email.current.value, password.current.value);//update firebase to login user
         const res = await loginCall( //updates the context
         { 
             email: email.current.value, 
-            password:password.current.value
+            password: password.current.value
         }, 
         dispatch);
         if (res === "wrong password"){
@@ -39,7 +42,7 @@ export default function Login() {
                 </span>
             </div>
             <div className="loginRight">
-                <form className="loginBox" onSubmit={handleClick}>
+                <form className="loginBox" onSubmit={handleLogin}>
                     <input 
                         placeholder="Email" 
                         type="email" 

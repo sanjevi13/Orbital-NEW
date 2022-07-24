@@ -6,8 +6,9 @@ import ChatOnline from "../chatOnline/ChatOnline";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import {Add, Remove} from "@mui/icons-material";
+import {Add, Remove, FileUpload} from "@mui/icons-material";
 import EditProfile from "../editProfile/EditProfile";
+import { useAuth, upload } from "../../firebase";
 
 export default function Rightbar({user}) { //user refers to user that rightbar is being generated for
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -178,6 +179,28 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
   }
 
   const ProfileRightBar = () => {
+    const firebaseUser = useAuth();
+    const [photo, setPhoto] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
+    
+    function handleChange(e) { //add photo to state
+      if (e.target.files[0]) {
+        setPhoto(e.target.files[0])
+      }
+    }
+  
+    function handleUpload() { //
+      console.log(firebaseUser);
+      upload(photo, firebaseUser, setLoading);
+    }
+
+    useEffect(() => { //set photo URL
+      if (firebaseUser?.photoURL) {
+        setPhotoURL(firebaseUser.photoURL);
+      }
+    }, [firebaseUser])
+
     return (
       <>
       {user.username !== currentUser.username && (
@@ -186,6 +209,25 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
           {followed ? <Remove/> : <Add/>}
         </button>
       )}
+      
+      {/* <div className="fields">
+        <input type="file" onChange={handleChange} />
+        <button disabled={loading || !photo} onClick={handleUpload}>Upload</button>
+      </div> */}
+      <label htmlFor="files" className="uploadPhoto">
+        <FileUpload className="shareIcon"/>
+        <span className="shareOptionText">Upload profile picture</span>
+        {/* allows files to be selected and only the first file is used */}
+        <input 
+            style={{display:"none"}} 
+            type="file" 
+            id="files" 
+            accept=".png,.jpeg,.jpg" 
+            onChange={handleChange}
+        />
+      </label>
+      <button disabled={loading || !photo} onClick={handleUpload}>Upload</button>
+      
       {user.username === currentUser.username && <EditProfile/>}
 
       <h4 className="rightbarTitle">User Information</h4>
@@ -196,12 +238,10 @@ export default function Rightbar({user}) { //user refers to user that rightbar i
         </div>
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">Course:</span>
-          {/* <span className="rightbarInfoValue">{user.relationship === 1 ? "Single" : "Taken"}</span> */}
           <span className="rightbarInfoValue">{course}</span>
         </div>
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">Status:</span>
-          {/* <span className="rightbarInfoValue">{user.relationship === 1 ? "Single" : "Taken"}</span> */}
           <span className="rightbarInfoValue">{status}</span>
         </div>
       </div>

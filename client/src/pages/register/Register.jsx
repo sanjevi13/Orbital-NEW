@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import { axiosInstance } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
-
+import { signup } from "../../firebase";
 
 export default function Register() {
     const username = useRef(); //reference to the jsx element
@@ -16,19 +16,23 @@ export default function Register() {
     const context = useContext(AuthContext); 
     const {user, isFetching, error, dispatch} = useContext(AuthContext); 
     
-    const handleClick = async (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
-        if (passwordAgain.current.value !== password.current.value){
+        if (passwordAgain.current.value !== password.current.value){ // if passwords dont match
             password.current.setCustomValidity("Passwords don't match")
-        } else {
+        } else { // if passwords match
             const user = {
                 username: username.current.value,
                 email: email.current.value,
                 password: password.current.value
             }
             try {
-                const res = await axios.post("auth/register", user);     
-                history.push("/login");        
+                // add user to mongoDB
+                const res = await axios.post("/auth/register", user);     
+                history.push("/login");
+                // add user to firebase    
+                await signup(email.current.value, password.current.value)    
+
             } catch(err){
                 console.log(err);
             }
@@ -46,7 +50,7 @@ export default function Register() {
                 </span>
             </div>
             <div className="loginRight">
-                <form className="loginBox" onSubmit={handleClick}>
+                <form className="loginBox" onSubmit={handleRegister}>
                     <input placeholder="Username" ref={username} required className="loginInput" />
                     <input placeholder="Email" 
                     ref={email} 

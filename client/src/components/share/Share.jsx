@@ -3,12 +3,13 @@ import {PermMedia, Label, Room, EmojiEmotions , Cancel} from "@mui/icons-materia
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useRef, useState } from "react";
 import axios from "axios";
+import { useAuth } from "../../firebase";
 export default function Share() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user} = useContext(AuthContext);
     const desc = useRef(); //text that user wants to share
     const [file, setFile] = useState(null);
-    
+    const  firebaseUser = useAuth();
     const submitHandler = async (e) => { //creates new post for user
         e.preventDefault();
         const newPost = {
@@ -41,8 +42,8 @@ export default function Share() {
             <div className="shareTop">
                 <img    
                 src={
-                user.profilePicture 
-                    ? PF + user.profilePicture
+                firebaseUser?.photoURL
+                    ? firebaseUser?.photoURL
                     : PF + "noProfilePic.jpg"
                 }  
                 alt="" 

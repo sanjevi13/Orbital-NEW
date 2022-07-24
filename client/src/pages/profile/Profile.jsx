@@ -7,12 +7,14 @@ import { useState, useEffect } from "react";
 import axios from "axios"; 
 import { useParams } from "react-router";
 import { axiosInstance } from "../../config";
-
+import { useAuth } from "../../firebase";
 
 export default function Profile() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user, setUser] = useState({});
     const username = useParams().username;
+    const firebaseUser = useAuth();
+    console.log(firebaseUser);
 
     useEffect(() => { //action that occurs after you render the page
         const fetchUser = async () => { //async function can only be declared inside main function
@@ -31,8 +33,8 @@ export default function Profile() {
         <div className="profileRight">
             <div className="profileRightTop">
                 <div className="profileCover">
-                    <img src= {user.coverPicture ? PF + user.coverPicture : PF + "noCover.jpg"} alt="" className="profileCoverImg" />
-                    <img src= {user.profilePicture ? PF + user.coverPicture : PF + "noProfilePic.jpg"} alt="" className="profileUserImg" />
+                    <img src= {firebaseUser?.photoURL ? firebaseUser.photoURL : PF + "noCover.jpg"} alt="" className="profileCoverImg" />
+                    <img src= {firebaseUser?.photoURL ? firebaseUser.photoURL : PF + "noProfilePic.jpg"} alt="" className="profileUserImg" />
                 </div>
             </div>
             <div className="profileInfo">

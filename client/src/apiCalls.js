@@ -10,13 +10,12 @@ export const loginCall = async (userCredential, dispatch) => {
         dispatch(LoginSuccess(res.data));
         return "success";
     } catch(err) {
-        console.log(err);
         dispatch(LoginFailure(err));
         return err.response.data;
     }
 }
 
-export const logOut = (dispatch) => {
+export const logOut = async (dispatch) => {
     dispatch(LogOut());
 }
 

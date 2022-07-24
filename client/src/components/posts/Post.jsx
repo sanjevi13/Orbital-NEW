@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import { axiosInstance } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
+import { useAuth } from "../../firebase";
 
 export default function Post({post}) {
     const [like, setLike] = useState(post.likes.length); //control the number of likes
@@ -13,6 +14,7 @@ export default function Post({post}) {
     const [user, setUser] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user: currentUser} = useContext(AuthContext);
+    const firebaseUser = useAuth();
     
     useEffect(() => { //set the user for this post
         const fetchUser = async () => { //async function can only be declared inside main function
