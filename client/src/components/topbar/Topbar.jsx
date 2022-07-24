@@ -4,13 +4,16 @@ import {Link, useHistory} from "react-router-dom";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import {logOut} from "../../apiCalls";
+import { logout, useAuth } from "../../firebase";
 function Topbar() {
     const {user, dispatch} = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const searchInput = useRef();
     const history = useHistory();
+    const firebaseUser = useAuth();
 
-    const handleLogOut = () => {
+    const handleLogOut = async () => {
+        await logout();
         logOut(dispatch); //update context to set user to null
         window.location.reload(); //refresh page
     }
@@ -64,8 +67,8 @@ function Topbar() {
                 <Link to={"/profile/"+ user.username}>
                     <img 
                     src={
-                    user.profilePicture 
-                        ? PF + user.profilePicture
+                    firebaseUser.photoURL
+                        ? firebaseUser.photoURL
                         : PF + "noProfilePic.jpg"
                     } 
                     alt="" className="topbarImg" 
