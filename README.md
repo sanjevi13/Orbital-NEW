@@ -1,2 +1,2 @@
 # 2Donkeys-Orbital
-# were gona be the very best like no one ever was
+# A social media web app with chat functionality
